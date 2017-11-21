@@ -16,7 +16,9 @@ public class ThrowingErrorListener extends BaseErrorListener {
 	      throws ParseCancellationException {
 		   JOptionPane.showMessageDialog(null, "line " + line + ":" + charPositionInLine + " " + msg);
 	        
-	         System.out.println("line " + line + ":" + charPositionInLine + " " + msg);
-		   //throw new ParseCancellationException("line " + line + ":" + charPositionInLine + " " + msg);
+	       System.out.println("line " + line + ":" + charPositionInLine + " " + msg);
+	       
+	         
+		   throw new ParseCancellationException("line " + line + ":" + charPositionInLine + " " + msg);
 	      }
 	}

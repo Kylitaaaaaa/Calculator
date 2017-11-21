@@ -172,13 +172,8 @@ public class menu {
 		JButton buttonDecimal = new JButton(".");
 		buttonDecimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(ss && dec==false){stemp1+=".";resultField.setText(stemp1);
-				dec=true;
-				//if(stemp2=="")num1.setText("num1 : "+stemp1);
-				}
-				else if(dec==false) {stemp2+=".";resultField.setText(stemp2);dec=true;
-				//if(stemp1!="")num2.setText("num2 : "+stemp2);
-				}
+				if(ss){stemp1+=".";resultField.setText(stemp1);}
+				else {stemp2+=".";resultField.setText(stemp2);}
 			}
 		});
 		buttonDecimal.setBounds(320, 254, 117, 25);
@@ -226,6 +221,16 @@ public class menu {
 		buttonDiv.setBounds(469, 304, 117, 25);
 		frame.getContentPane().add(buttonDiv);
 		
+		JButton buttonMod = new JButton("%");
+		buttonMod.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(ss){stemp1+="%";resultField.setText(stemp1);}
+				else {stemp2+="%";resultField.setText(stemp2);}
+			}
+		});
+		buttonMod.setBounds(469, 350, 117, 25);
+		frame.getContentPane().add(buttonMod);
+		
 		JButton buttonOpen = new JButton("(");
 		buttonOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -269,7 +274,15 @@ public class menu {
 				viewr.setScale(1.5);
 			    viewr.open();
 			    
-			    resultField.setText(mv.visit(mv.getTree()) + "");
+			    float temp = mv.visit(mv.getTree());
+			    
+			    System.out.println("error? " + mv.getIsError());
+			    if (mv.getIsError())
+			    	resultField.setText("ERROR");
+			    else
+			    	resultField.setText(temp + "");
+			    		
+			    
 			    
 			    
 			    
