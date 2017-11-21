@@ -8,6 +8,7 @@ public class MathUtil {
 	        case '/': return left / right;
 	        case '+': return left + right;
 	        case '-': return left - right;
+	        case '%': return left % right;
 	        default: throw new IllegalArgumentException("Unknown operator " + op);
 		}
 	}
