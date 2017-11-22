@@ -16,8 +16,6 @@ public class menu {
 
 	private JFrame frame;
 	private JTextField resultField;
-	//private JTextField anserField;
-	//private JButton one,two,three,four,five,six,seven,eight,nine,zero,add,sub,multiply,div,equals;
 	public String sanswer=null,stemp1="",stemp2="";
 	public double answer=0.0;
 	public boolean ss=true,dec=false;
@@ -153,22 +151,14 @@ public class menu {
 		button0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ss){stemp1+="0";resultField.setText(stemp1);
-				//if(stemp2=="")num1.setText("num1 : "+stemp1);
 				}
 				else {stemp2+="0";resultField.setText(stemp2);
-				//if(stemp1!="")num2.setText("num2 : "+stemp2);
 				}
 			}
 		});
 		button0.setBounds(183, 254, 117, 25);
 		frame.getContentPane().add(button0);
 		
-		/*JButton buttonDecimal = new JButton(".");
-		buttonDecimal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});*/
 		JButton buttonDecimal = new JButton(".");
 		buttonDecimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -265,87 +255,34 @@ public class menu {
 		buttonEq.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("input: " + resultField.getText());
-//				String text = "((5+(5/3)*4-6))";
+//				String text = "5+($5/$3)*$4-6";
 //				System.out.println("text: " + text);
 				String text = "";
 				text = resultField.getText();
 				
-				
-				/*
-				int open = 0;
-				int close = 0;
-				for(int i=0; i<text.length(); i++){
-					if(text.charAt(i) == '(')
-						open++;
-					else if(text.charAt(i) == ')')
-						close++;
-				}
-				
-				if(open != close){
-					
-					resultField.setText("ERROR");
-					if(open > close){
-						String msg = "mismatched input '<EOF>' expecting {NUMBER, ')'}";
-						try {
-							throw new Exception(msg);
-						} catch (Exception e1) {
-							 JOptionPane.showMessageDialog(null, "Error: " +  msg);
-						}
-					}
-					else{
-						String msg = "mismatched input '<EOF>' expecting {NUMBER, '('}";
-						try {
-							throw new Exception(msg);
-						} catch (Exception e1) {
-							 JOptionPane.showMessageDialog(null, "Error: " +  msg);
-						}
-					}
-				} */
-//				else{
 					System.out.println("getting tree");
 					MyVisitor mv = new MyVisitor(text);
 					
-	//				
 					float temp = (float) 0.0;
 				    try{
 					
 				    	temp = mv.visit(mv.getTree());
+				    	
 				    }catch(Exception ex){
 			            System.out.println("error here");
 			            mv.setError(true);
 			        }
 				    
-	//			    try{
-	//				    TreeViewer viewr = new TreeViewer(Arrays.asList(mv.getParser().getRuleNames()), mv.getTree());
-	//					viewr.setScale(1.5);
-	//				    viewr.open();
-	//				    
-	//					}catch(Exception ex){
-	//			            System.out.println("error here");
-	//			            JOptionPane.showMessageDialog(null, "Error: Invalid input!");
-	//			            mv.setError(true);
-	//			        }
-				    
-				    
-				    System.out.println("error? " + mv.getIsError());
-				    if (mv.getIsError())
+				    if (mv.getIsError()){
 				    	resultField.setText("ERROR");
+				    }
+				    
 				    else{
 				    	resultField.setText(temp + "");
 				    	TreeViewer viewr = new TreeViewer(Arrays.asList(mv.getParser().getRuleNames()), mv.getTree());
 						viewr.setScale(1.5);
 					    viewr.open();
 				    }
-			    
-			    
-			    
-//				}
-			    		
-			    
-			    
-			    
-			    
-				
 			}
 		});
 		buttonEq.setBounds(497, 180, 117, 25);
@@ -357,8 +294,6 @@ public class menu {
 		resultField.setBounds(46, 36, 389, 66);
 		frame.getContentPane().add(resultField);
 		resultField.setColumns(10);
-		
-		
 		
 		JButton buttonX = new JButton("X");
 		buttonX.addActionListener(new ActionListener() {

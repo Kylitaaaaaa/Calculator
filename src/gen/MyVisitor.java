@@ -26,7 +26,6 @@ public class MyVisitor extends DemoBaseVisitor<Float>{
     
     public MyVisitor(String input){
     	isError = false;
-    	System.out.println("huh");
         StringBuilder sb = new StringBuilder("");
         String userInput = input;
 //      String userInput = "((5+(5/3)*4-6)";
@@ -40,7 +39,6 @@ public class MyVisitor extends DemoBaseVisitor<Float>{
         tokens = new CommonTokenStream(lexer);
         
         demoBaseErrorListener = new DemoBaseErrorListener();
-//        SyntaxErrorCollector.getInstance().reset();
         
         parser = new DemoParser(tokens);
             parser.removeErrorListeners();
@@ -54,23 +52,13 @@ public class MyVisitor extends DemoBaseVisitor<Float>{
             catch(Exception e){
                 System.out.println("error herewueriqw");
                 isError = true;
-            }
-        
-        
+            }   
     }
-   
-    
-    
-    
-    
-    
     
     public DemoBaseErrorListener getDemoBaseErrorListener() {
         return demoBaseErrorListener;
     }
-
-
-
+    
     public void setDemoBaseErrorListener(DemoBaseErrorListener demoBaseErrorListener) {
         this.demoBaseErrorListener = demoBaseErrorListener;
     }
@@ -80,20 +68,17 @@ public class MyVisitor extends DemoBaseVisitor<Float>{
     	return visitMath_expression(ctx.mathC);
     }
 
-
     @Override
     public Float visitMath_expression(Math_expressionContext ctx) {
         
         try{
-        System.out.println("Printing : " + ctx.getText());
-        for(int i=0; i<ctx.getChildCount(); i++)
-            System.out.println(i + " : " + ctx.getChild(i).getText() + " : " + ctx.getChild(i).getClass().getSimpleName().toString());
+//        System.out.println("Printing : " + ctx.getText());
+//        for(int i=0; i<ctx.getChildCount(); i++)
+//            System.out.println(i + " : " + ctx.getChild(i).getText() + " : " + ctx.getChild(i).getClass().getSimpleName().toString());
         
         System.out.println("Done Printing\n\n");
         
         if(ctx.getChildCount() == 1){
-        	System.out.println("here???? : " + ctx.getChild(0).getText());
-//        	return Float.parseFloat(ctx.getChild(0).getText());
         	
             if(ctx.getChild(0).getText().charAt(0) == '$')
                 return Float.parseFloat(ctx.getChild(0).getText().substring(1, ctx.getChild(0).getText().length())) * -1;
@@ -102,17 +87,14 @@ public class MyVisitor extends DemoBaseVisitor<Float>{
                 
         }
         else if(ctx.getChild(0).getText().equals("(")){
-            System.out.println("here");
             return (Float) visitMath_expression(ctx.math);
         }
         else {
-            System.out.println("here 1");
-            System.out.println("left : " + ctx.left.getText());
             return (Float) MathUtil.solve(visitMath_expression(ctx.left), ctx.op.getText().charAt(0), visitMath_expression(ctx.right));
         }
         }
         catch(Exception e){
-            System.out.println("error here huhuhu");
+            System.out.println("error here");
             isError = true;
             return (float) 0;
         }
@@ -140,10 +122,5 @@ public class MyVisitor extends DemoBaseVisitor<Float>{
 	public void setError(boolean isError) {
 		this.isError = isError;
 	}
-
-
-
-	
-    
     
 }
