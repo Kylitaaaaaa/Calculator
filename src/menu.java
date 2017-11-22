@@ -281,6 +281,8 @@ public class menu {
 				
 				if(open != close){
 					System.out.println("hehehhe");
+					System.out.println("open : " + open);
+					System.out.println("close : " + close);
 					
 					resultField.setText("ERROR");
 					if(open > close){
