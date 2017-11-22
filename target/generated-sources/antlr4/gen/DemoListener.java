@@ -9,6 +9,16 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface DemoListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link DemoParser#code}.
+	 * @param ctx the parse tree
+	 */
+	void enterCode(@NotNull DemoParser.CodeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DemoParser#code}.
+	 * @param ctx the parse tree
+	 */
+	void exitCode(@NotNull DemoParser.CodeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link DemoParser#math_expression}.
 	 * @param ctx the parse tree
 	 */

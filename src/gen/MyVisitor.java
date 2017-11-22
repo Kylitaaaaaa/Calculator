@@ -2,6 +2,7 @@ package gen;
 
 import java.util.List;
 
+import org.antlr.v4.runtime.ANTLRErrorStrategy;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.DefaultErrorStrategy;
@@ -18,7 +19,7 @@ public class MyVisitor extends DemoBaseVisitor<Float>{
     
     private DemoLexer lexer;
     private CommonTokenStream tokens;
-    
+    private ANTLRErrorStrategy defaultStrat;
     private DemoBaseErrorListener demoBaseErrorListener;
     
     public MyVisitor(String input){
@@ -26,10 +27,13 @@ public class MyVisitor extends DemoBaseVisitor<Float>{
     	System.out.println("huh");
         StringBuilder sb = new StringBuilder("");
         String userInput = input;
-//      String userInput = "(1+2*(3+4))";
+//      String userInput = "((5+(5/3)*4-6)";
         System.out.println("input: " + userInput);
+        defaultStrat = new DefaultErrorStrategy();
         
         lexer = new DemoLexer(CharStreams.fromString(userInput));
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
         
         tokens = new CommonTokenStream(lexer);
         
@@ -39,8 +43,16 @@ public class MyVisitor extends DemoBaseVisitor<Float>{
         parser = new DemoParser(tokens);
             parser.removeErrorListeners();
             parser.addErrorListener(ThrowingErrorListener.INSTANCE);
+            parser.setErrorHandler(defaultStrat);
         
-        tree  = parser.math_expression();
+            try{
+            	System.out.println("getting code");
+            	tree  = parser.code();
+            }
+            catch(Exception e){
+                System.out.println("error herewueriqw");
+                isError = true;
+            }
         
         
     }
@@ -70,17 +82,18 @@ public class MyVisitor extends DemoBaseVisitor<Float>{
         System.out.println("Done Printing\n\n");
         
         if(ctx.getChildCount() == 1){
+        	System.out.println("here???? : " + ctx.getChild(0).getText());
+//        	return Float.parseFloat(ctx.getChild(0).getText());
+        	
             if(ctx.getChild(0).getText().charAt(0) == '$')
                 return Float.parseFloat(ctx.getChild(0).getText().substring(1, ctx.getChild(0).getText().length())) * -1;
             else
                 return Float.parseFloat(ctx.getChild(0).getText());
+                
         }
         else if(ctx.getChild(0).getText().equals("(")){
             System.out.println("here");
             return (Float) visitMath_expression(ctx.math);
-        }
-        else if(!ctx.getChild(0).getText().equals("(") && ctx.getChild(ctx.getChildCount()-1).getText().equals(")")){
-        	throw new Exception("[putanging");
         }
         else {
             System.out.println("here 1");
@@ -89,7 +102,7 @@ public class MyVisitor extends DemoBaseVisitor<Float>{
         }
         }
         catch(Exception e){
-            System.out.println("error here");
+            System.out.println("error here huhuhu");
             isError = true;
             return (float) 0;
         }

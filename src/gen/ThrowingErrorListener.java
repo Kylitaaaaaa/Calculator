@@ -21,4 +21,17 @@ public class ThrowingErrorListener extends BaseErrorListener {
 	         
 		   throw new ParseCancellationException("line " + line + ":" + charPositionInLine + " " + msg);
 	      }
+	   
+	   /*
+	   public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine,
+	            String msg, RecognitionException e) {
+		   
+//		   System.out.println("line " + line + ":" + charPositionInLine + " " + msg);
+//		   System.out.println("error :" + charPositionInLine + " " + msg);
+		   JOptionPane.showMessageDialog(null, "Error: " +  msg);
+	        
+	        SyntaxErrorCollector.getInstance().recordError(line, charPositionInLine, msg);
+	        super.syntaxError(recognizer, offendingSymbol, line, charPositionInLine, msg, e);
+	    }
+	    */
 	}

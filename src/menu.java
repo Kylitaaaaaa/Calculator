@@ -265,22 +265,80 @@ public class menu {
 		buttonEq.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("input: " + resultField.getText());
+//				String text = "((5+(5/3)*4-6))";
+//				System.out.println("text: " + text);
 				String text = "";
 				text = resultField.getText();
-				MyVisitor mv = new MyVisitor(text);
 				
-				TreeViewer viewr = new TreeViewer(Arrays.asList(
-		                mv.getParser().getRuleNames()), mv.getTree());
-				viewr.setScale(1.5);
-			    viewr.open();
+				int open = 0;
+				int close = 0;
+				for(int i=0; i<text.length(); i++){
+					if(text.charAt(i) == '(')
+						open++;
+					else if(text.charAt(i) == ')')
+						close++;
+				}
+				
+				if(open != close){
+					System.out.println("hehehhe");
+					
+					resultField.setText("ERROR");
+					if(open > close){
+						String msg = "mismatched input '<EOF>' expecting {NUMBER, ')'}";
+						try {
+							throw new Exception(msg);
+						} catch (Exception e1) {
+							 JOptionPane.showMessageDialog(null, "Error: " +  msg);
+						}
+					}
+					else{
+						String msg = "mismatched input '<EOF>' expecting {NUMBER, '('}";
+						try {
+							throw new Exception(msg);
+						} catch (Exception e1) {
+							 JOptionPane.showMessageDialog(null, "Error: " +  msg);
+						}
+					}
+				}
+				else{
+					System.out.println("getting tree");
+					MyVisitor mv = new MyVisitor(text);
+					
+	//				
+					float temp = (float) 0.0;
+				    try{
+					
+				    	temp = mv.visit(mv.getTree());
+				    }catch(Exception ex){
+			            System.out.println("error here");
+			            mv.setError(true);
+			        }
+				    
+	//			    try{
+	//				    TreeViewer viewr = new TreeViewer(Arrays.asList(mv.getParser().getRuleNames()), mv.getTree());
+	//					viewr.setScale(1.5);
+	//				    viewr.open();
+	//				    
+	//					}catch(Exception ex){
+	//			            System.out.println("error here");
+	//			            JOptionPane.showMessageDialog(null, "Error: Invalid input!");
+	//			            mv.setError(true);
+	//			        }
+				    
+				    
+				    System.out.println("error? " + mv.getIsError());
+				    if (mv.getIsError())
+				    	resultField.setText("ERROR");
+				    else{
+				    	resultField.setText(temp + "");
+				    	TreeViewer viewr = new TreeViewer(Arrays.asList(mv.getParser().getRuleNames()), mv.getTree());
+						viewr.setScale(1.5);
+					    viewr.open();
+				    }
 			    
-			    float temp = mv.visit(mv.getTree());
 			    
-			    System.out.println("error? " + mv.getIsError());
-			    if (mv.getIsError())
-			    	resultField.setText("ERROR");
-			    else
-			    	resultField.setText(temp + "");
+			    
+				}
 			    		
 			    
 			    

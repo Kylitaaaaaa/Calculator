@@ -17,6 +17,18 @@ public class DemoBaseListener implements DemoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCode(@NotNull DemoParser.CodeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCode(@NotNull DemoParser.CodeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMath_expression(@NotNull DemoParser.Math_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}

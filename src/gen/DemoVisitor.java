@@ -11,6 +11,12 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface DemoVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link DemoParser#code}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCode(DemoParser.CodeContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link DemoParser#math_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
