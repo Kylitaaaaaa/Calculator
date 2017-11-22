@@ -1,6 +1,6 @@
 grammar Demo;
 code
-	:	math_expression
+	:	mathC=math_expression* EOF
 	;
 
 math_expression

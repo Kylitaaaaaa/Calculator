@@ -270,6 +270,8 @@ public class menu {
 				String text = "";
 				text = resultField.getText();
 				
+				
+				/*
 				int open = 0;
 				int close = 0;
 				for(int i=0; i<text.length(); i++){
@@ -280,9 +282,6 @@ public class menu {
 				}
 				
 				if(open != close){
-					System.out.println("hehehhe");
-					System.out.println("open : " + open);
-					System.out.println("close : " + close);
 					
 					resultField.setText("ERROR");
 					if(open > close){
@@ -301,8 +300,8 @@ public class menu {
 							 JOptionPane.showMessageDialog(null, "Error: " +  msg);
 						}
 					}
-				}
-				else{
+				} */
+//				else{
 					System.out.println("getting tree");
 					MyVisitor mv = new MyVisitor(text);
 					
@@ -340,7 +339,7 @@ public class menu {
 			    
 			    
 			    
-				}
+//				}
 			    		
 			    
 			    
